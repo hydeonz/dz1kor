@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8">
+    <title>Страничка с полем ввода и полем вывода</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .input-field {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="input-field">
+        <form action="dz1.php" method="POST">
+            <label for="input">Введите текст:</label>
+            <input type="text" id="input" name="input"/>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+name: dz1kor
+recipe: lamp
+config:
+  webroot: .
