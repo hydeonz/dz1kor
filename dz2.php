@@ -5,10 +5,12 @@ error_reporting(E_ALL & ~E_NOTICE);
 
     $string1 = trim($string1);
     $string2 = trim($string2);
-
     $string1Arr = explode(' ',$string1);
     $string2Arr = explode(' ',$string2);
-
+    $string1Arr = array_filter($string1Arr);
+    $string2Arr = array_filter($string2Arr);
+    $string1Arr = array_values($string1Arr);
+    $string2Arr = array_values($string2Arr);
     $maxLenStrings = max(count($string2Arr),count($string1Arr));
 
     $newmas = array();
@@ -30,6 +32,9 @@ error_reporting(E_ALL & ~E_NOTICE);
     }
     $newpole = null;
     $newpole = implode(" ",$newmas);
+
+    $newmas = array_filter($newmas);
+    $newmas = array_values($newmas);
 ?>
 <html lang="ru">
 <head>

@@ -36,6 +36,16 @@ $mas100_999 = [
     'cent' => 100
 ];
 $mas70_99 = [
+        'quatre-vingt-dix' => 90,
+    'quatre-vingt-onze' => 91,
+    'quatre-vingt-douze' => 92,
+    'quatre-vingt-treize' => 93,
+    'quatre-vingt-quatorze' => 94,
+    'quatre-vingt-quinze' => 95,
+    'quatre-vingt-seize' => 96,
+    'quatre-vingt-dix-sept' => 97,
+    'quatre-vingt-dix-huit' => 98,
+    'quatre-vingt-dix-neuf' => 99,
     'soixante-dix' => 70,
     'soixante-onze' => 71,
     'soixante-douze' => 72,
@@ -57,16 +67,6 @@ $mas70_99 = [
     'quatre-vingt-sept' => 87,
     'quatre-vingt-huit' => 88,
     'quatre-vingt-neuf' => 89,
-    'quatre-vingt-dix' => 90,
-    'quatre-vingt-onze' => 91,
-    'quatre-vingt-douze' => 92,
-    'quatre-vingt-treize' => 93,
-    'quatre-vingt-quatorze' => 94,
-    'quatre-vingt-quinze' => 95,
-    'quatre-vingt-seize' => 96,
-    'quatre-vingt-dix-sept' => 97,
-    'quatre-vingt-dix-huit' => 98,
-    'quatre-vingt-dix-neuf' => 99
 ];
 $accept = $_POST['input'];
 $accept = preg_replace('/\s+/', ' ', $accept);
@@ -92,7 +92,6 @@ foreach ($res as $num) {
         $number = array_values($number);
     }
 }
-print_r($number);
 $newmas70_99 = array_combine(
     array_map(function($key) {
         return str_replace('-', ' ', $key);
@@ -100,28 +99,28 @@ $newmas70_99 = array_combine(
     $mas70_99
 );
 foreach($newmas70_99 as $key=>$value){
+
     for ($i = 0;$i<count($number);$i++){
-        if ($key === $number[$i]." ".$number[$i+1] && $number[$i+2]){
-            $number[$i] = $number[$i].'-'.$number[$i+1];
-            unset($number[$i+1]);
-            $number = array_filter($number);
-            $number = array_values($number);
-            break;
-        }
-        if ($key === $number[$i]." ".$number[$i+1] ){
-            echo "1";
-            $number[$i] = $number[$i].'-'.$number[$i+1];
-            unset($number[$i+1]);
-            unset($number[$i+2]);
-            $number = array_filter($number);
-            $number = array_values($number);
-            break;
-        }
-        else if ($key === $number[$i]." ".$number[$i+1]." ".$number[$i+2]." ".$number[$i+3]){
-            $number[$i] = $number[$i].'-'.$number[$i+1].'-'.$number[$i+2].'-'.$number[$i+3];
+        if ($key === $number[$i]." ".$number[$i+1]." ".$number[$i+2]." ".$number[$i+3]){
+            $number[$i] = $number[$i]."-".$number[$i+1]."-".$number[$i+2]."-".$number[$i+3];
             unset($number[$i+1]);
             unset($number[$i+2]);
             unset($number[$i+3]);
+            $number = array_filter($number);
+            $number = array_values($number);
+            break;
+        }
+        if ($key === $number[$i]." ".$number[$i+1]." ".$number[$i+2]){
+            $number[$i] = $number[$i]."-".$number[$i+1]."-".$number[$i+2];
+            unset($number[$i+1]);
+            unset($number[$i+2]);
+            $number = array_filter($number);
+            $number = array_values($number);
+            break;
+        }
+        if ($key === $number[$i]." ".$number[$i+1]){
+            $number[$i] = $number[$i]."-".$number[$i+1];
+            unset($number[$i+1]);
             $number = array_filter($number);
             $number = array_values($number);
             break;
@@ -146,75 +145,79 @@ for ($i = 0, $b = 1; $i < count($number); $i++, $b++) {
         }
     }
     if (isset($mas1_9[$number[$i]]) && isset($mas1_9[$number[$i + 1]]) && !$err) {
-        $err = "После цифер не могут идти цифры (После цифры {$mas1_9[$number[$i]]} не может идти цифра {$mas1_9[$number[$i+1]]})";
+        $err = "После чисел единичного формата не могут идти числа единичного формата";
         break;
     }
     if (isset($mas1_9[$number[$i]]) && isset($mas11_19[$number[$i + 1]]) && !$err) {
-        $err = "После цифер не могут идти числа 11-19 (После цифры {$mas1_9[$number[$i]]} не может идти число {$mas11_19[$number[$i+1]]})";
+        $err = "После чисел единичного формата не могут идти числа формата 11-19";
         break;
     }
     if (isset($mas1_9[$number[$i]]) && isset($mas10_60[$number[$i + 1]]) && !$err) {
-        $err = "После цифер не могут идти десятки (После цифры {$mas1_9[$number[$i]]} не может идти число {$mas10_60[$number[$i+1]]})";
+        $err = "После чисел единичного формата не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas1_9[$number[$i]]) && isset($mas70_99[$number[$i + 1]]) && !$err) {
-        $err = "После цифер не могут идти десятки (После цифры {$mas1_9[$number[$i]]} не может идти число {$mas70_99[$number[$i+1]]})";
+        $err = "После чисел единичного формата не могут идти числа десятичного формата)";
         break;
     }
 //---------------------------------------------------------------------------------
     if (isset($mas11_19[$number[$i]]) && isset($mas11_19[$number[$i + 1]]) && !$err) {
-        $err = "После чисел 11-19 не могут идти числа 11-19 (После числа {$mas11_19[$number[$i]]} не может идти число {$mas11_19[$number[$i+1]]})";
+        $err = "После чисел формата 11-19 не могут идти числа формата 11-19";
+        break;
+    }
+    if (isset($mas11_19[$number[$i]]) && isset($mas1_9[$number[$i + 1]]) && !$err) {
+        $err = "После чисел формата 11-19 не могут идти числа единичного формата";
         break;
     }
     if (isset($mas11_19[$number[$i]]) && isset($mas10_60[$number[$i + 1]]) && !$err) {
-        $err = "После чисел 11-19 не могут идти десятки (После числа {$mas11_19[$number[$i]]} не может идти число {$mas10_60[$number[$i+1]]})";
+        $err = "После чисел формата 11-19 не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas11_19[$number[$i]]) && isset($mas70_99[$number[$i + 1]])&& !$err) {
-        $err = "После чисел 11-19 не могут идти десятки (После числа {$mas11_19[$number[$i]]} не может идти число {$mas70_99[$number[$i+1]]})";
+        $err = "После чисел формата 11-19 не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas11_19[$number[$i]]) && isset($mas100_999[$number[$i + 1]]) && !$err) {
-        $err = "После чисел 11-19 не могут идти сотни(После числа {$mas11_19[$number[$i]]} не может идти число {$mas100_999[$number[$i+1]]})";
+        $err = "После чисел формата 11-19 не могут идти сотни";
         break;
     }
 //---------------------------------------------------------------------------------
     if (isset($mas10_60[$number[$i]]) && isset($mas11_19[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти числа 11-19 (После числа {$mas10_60[$number[$i]]} не может идти число {$mas11_19[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа формата 11-19";
         break;
     }
     if (isset($mas10_60[$number[$i]]) && isset($mas100_999[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти сотни (После числа {$mas10_60[$number[$i]]} не может идти число {$mas100_999[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти сотни";
         break;
     }
     if (isset($mas10_60[$number[$i]]) && isset($mas10_60[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти десятки (После числа {$mas10_60[$number[$i]]} не может идти число {$mas10_60[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas10_60[$number[$i]]) && isset($mas70_99[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти десятки (После числа {$mas10_60[$number[$i]]} не может идти число {$mas70_99[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа десятичного формата";
         break;
     }
 //---------------------------------------------------------------------------------
     if (isset($mas70_99[$number[$i]]) && isset($mas70_99[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти десятки (После числа {$mas70_99[$number[$i]]} не может идти число {$mas70_99[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas70_99[$number[$i]]) && isset($mas10_60[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти числа десятки (После числа {$mas70_99[$number[$i]]} не может идти число {$mas10_60[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа десятичного формата";
         break;
     }
     if (isset($mas70_99[$number[$i]]) && isset($mas11_19[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти числа 11-19 (После числа {$mas70_99[$number[$i]]} не может идти число {$mas11_19[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти числа формата 11-19";
         break;
     }
     if (isset($mas70_99[$number[$i]]) && isset($mas100_999[$number[$i + 1]]) && !$err) {
-        $err = "После десятков не могут идти сотни (После числа {$mas70_99[$number[$i]]} не может идти число {$mas100_999[$number[$i+1]]})";
+        $err = "После чисел десятичного формата не могут идти сотни";
         break;
     }
 //---------------------------------------------------------------------------------
     if (isset($mas100_999[$number[$i]]) && isset($mas100_999[$number[$i + 1]]) && !$err) {
-        $err = "После сотен не могут идти сотни(После числа {$mas100_999[$number[$i]]} не может идти число {$mas100_999[$number[$i+1]]})";
+        $err = "После сотен не могут сотни";
         break;
     }
 }
@@ -263,7 +266,7 @@ if (!$err) {
 <body>
 <div class="container">
     <div class="input-field">
-        <form action="dz1.php" method="POST">
+        <form action="/dz1.php" method="POST">
             <label for="input">Введите текст:</label>
             <input type="text" id="input" name="input"
                    value="<?php echo isset($_POST['input']) ? $_POST['input'] : ''; ?>"/>
